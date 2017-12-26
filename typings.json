@@ -1,0 +1,12 @@
+{
+  "main": "lib/app.d.ts",
+  "ambientDependencies": {
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash-3.10.d.ts#e12c8e3bcdd77fb05d498ec61525be6ad112dfd6",
+    "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#a361a8ab3c327f208d3f82ad206971d4a63d8c25",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743"
+  },
+  "dependencies": {
+    "chalk": "github:DefinitelyTyped/DefinitelyTyped/chalk/index.d.ts#a31e9a4bbfd75cceba04dd147a26d271131a0f40",
+    "experience.center.reporter.core": "file:./node_modules/experience.center.reporter.core/lib/app.d.ts"
+  }
+}
