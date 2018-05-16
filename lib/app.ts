@@ -1,11 +1,12 @@
 import {SrfMochaReporter} from "./srf-mocha-reporter";
-import {SrfJsonLogger, LogSwitch} from "experience.center.reporter.core";
+import {LogSwitch, SrfJsonLogger} from "./core/srf-json-logger";
 
 class SrfReporterWrapper {
     private _srfMochaReporter:SrfMochaReporter;
     constructor(runner, options){
-        var logger;
-        if (process.env["SRF_JSON_LOGGER"]){ // Web execution
+        let logger;
+
+        if (process.env["SRF_JSON_LOGGER"]){
             logger = new SrfJsonLogger(LogSwitch.ON);
         } else {
             logger = new SrfJsonLogger(LogSwitch.OFF);

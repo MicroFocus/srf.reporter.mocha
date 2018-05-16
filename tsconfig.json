@@ -1,15 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "ES5",
+        "target": "es6",
         "sourceMap": true,
         "declaration": true,
-        "noResolve": true
+        "noImplicitAny": false,
+        "removeComments": true,
+        "suppressExcessPropertyErrors": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "typings/custom"
+        ]
     },
     "exclude": [
         "node_modules",
-        "typings/browser.d.ts",
-        "typings/browser",
-        "dist"
+        "typings"
     ]
 }

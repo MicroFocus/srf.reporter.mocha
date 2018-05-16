@@ -1,6 +1,6 @@
 import {ITest, ISuite} from "mocha";
 import {EventEmitter} from "events";
-import {SrfReporterOptions} from "experience.center.reporter.core";
+import {SrfReporterOptions} from "./core/srf-reporter-types";
 
 export interface Test extends ITest {
     type: string;

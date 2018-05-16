@@ -1,9 +1,11 @@
 
-import {SrfReporterFacade, SrfJsonLogger, LogSwitch, RemoteExecutionContext, ReporterStep, StepRole, ReporterStatuses} from "experience.center.reporter.core";
 import {Suite, Test, MochaRunner, MochaReporterOptions} from "./srf-mocha-types";
 import {ReportContext} from "./report-context";
 import chalk = require("chalk");
 import _ = require("lodash");
+import {LogSwitch, SrfJsonLogger} from "./core/srf-json-logger";
+import {SrfReporterFacade} from "./core/srf-reporter-facade";
+import {RemoteExecutionContext, ReporterStatuses, ReporterStep, StepRole} from "./core/srf-reporter-types";
 
 const indentation = "   ";
 
@@ -34,18 +36,18 @@ export class SrfMochaReporter {
             this._initBurstOptions(options);
         }
 
-        this.setRunnerHandlers(runner); // Register runner to test events
+        this.setRunnerHandlers(runner);
         this._logger.debug("SrfMochaReporter.constructor: Created with options:" + JSON.stringify(options));
     }
 
     private setRunnerHandlers(runner) {
-        runner.on("pass", (test) => this.onPassedTest(test)); // test passed.
-        runner.on("fail", (test, err) => this.onFailedTest(test, err)); // (test,err) failed.
-        runner.on("test", (test)=> this.onTestBegin(test)); // test execution started.
-        runner.on("test end", (test) => this.onTestEnd(test)); // test completed.
-        runner.on("suite", (suite) => this.onSuiteBegin(suite)); // test suite execution started.
-        runner.on("suite end", (suite) => this.onSuiteEnd(suite)); // (suite) all tests and sub suites have finished.
-        runner.on("end", () => this.onEnd()); // execution complete.
+        runner.on("pass", (test) => this.onPassedTest(test));
+        runner.on("fail", (test, err) => this.onFailedTest(test, err));
+        runner.on("test", (test)=> this.onTestBegin(test));
+        runner.on("test end", (test) => this.onTestEnd(test));
+        runner.on("suite", (suite) => this.onSuiteBegin(suite));
+        runner.on("suite end", (suite) => this.onSuiteEnd(suite));
+        runner.on("end", () => this.onEnd());
     }
 
     private onSuiteBegin(suite: Suite) {
@@ -166,7 +168,7 @@ export class SrfMochaReporter {
 
         this._sessionId = this._createNewBurstSessionSync();
         process.env.SRF_CLIENT_SECRET = this._sessionId;
-        process.env.ACCESS_TOKEN_SECRET = this._sessionId; // for Leanft execution.
+        process.env.ACCESS_TOKEN_SECRET = this._sessionId;
 
     }
 

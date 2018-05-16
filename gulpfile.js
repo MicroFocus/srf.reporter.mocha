@@ -1,6 +1,5 @@
 var gulp = require("gulp");
 var tsc = require("gulp-typescript");
-var typings = require("typings");
 var tslint = require("gulp-tslint");
 var del = require("del");
 var Path = require("path");
@@ -13,26 +12,10 @@ var outputFolder = "dist";
 var tsProject = tsc.createProject("tsconfig.json", {rootDir: __dirname});
 
 gulp.task("clean",function(){
-	return del([outputFolder, "typings", "lib/**/*.d.ts", "lib/**/*.map", "lib/**/*.js"]);
+	return del([outputFolder, "lib/**/*.d.ts", "lib/**/*.map", "lib/**/*.js"]);
 });
 
-gulp.task("prepare", ["clean"], function(done) {
-	var timeout = setTimeout(function() { 
-        done(new Error("'typings.install' Failed: timeout"));
-    }, 30*1000);
-    
-    typings.install({ cwd: process.cwd() })
-		.then(function (tree) {
-			clearTimeout(timeout);
-            done();
-		})
-		.catch(function (error) {
-            clearTimeout(timeout);
-			done(new Error("'typings.install' returned an error: " + error.message));
-		});
-});
-
-gulp.task("compile", ["clean", "prepare"], function() {
+gulp.task("compile", ["clean"], function() {
     var tsResult = tsProject.src().pipe(sourcemaps.init()).pipe(tsProject());
     var devOutFolder = ".";
     return merge([
@@ -49,7 +32,7 @@ gulp.task("copyLib", ["clean", "compile"], function () {
 });
 
 gulp.task("copyMetaFiles", ["clean"], function () {
-	return gulp.src(["package.json", "README.md", "typings.json", "Dockerfile", ".dockerignore"]).pipe(gulp.dest(outputFolder));
+	return gulp.src(["package.json", "README.md"]).pipe(gulp.dest(outputFolder));
 });
 
 gulp.task("copyConfig", ["clean"], function () {
@@ -75,5 +58,5 @@ gulp.task("nsp", function (cb) {
 });
 
 // Default Task
-gulp.task("default", ["clean", "nsp", "prepare", "lint", "compile", "copyDistributables"]);
+gulp.task("default", ["clean", "nsp", "lint", "compile", "copyDistributables"]);
 gulp.task("dev", ["default"]);
