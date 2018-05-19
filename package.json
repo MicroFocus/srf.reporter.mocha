@@ -25,5 +25,20 @@
     "merge2": "1.0.1",
     "tslint": "4.0.2",
     "typescript": "2.3.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MicroFocus/srf.reporter.mocha.git"
+  },
+  "author": "MicroFocus",
+  "bugs": {
+    "url": "https://github.com/MicroFocus/srf.reporter.mocha/issues"
+  },
+  "homepage": "https://github.com/MicroFocus/srf.reporter.mocha#readme",
+  "keywords": [
+    "SRF",
+    "StromRunner Functionl",
+    "mocha",
+    "reporter",
+  ]
 }
